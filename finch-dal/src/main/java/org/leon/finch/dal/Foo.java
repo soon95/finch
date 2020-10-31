@@ -1,8 +1,8 @@
-package org.leon.finch;
+package org.leon.finch.dal;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.leon.finch.base.BaseEntity;
+import org.leon.finch.dal.base.BaseEntity;
 
 /**
  * @author Leon Song

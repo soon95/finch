@@ -1,4 +1,4 @@
-package org.leon.finch.base;
+package org.leon.finch.dal.base;
 
 import java.util.List;
 

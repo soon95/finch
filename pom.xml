@@ -25,6 +25,7 @@
         <mybatis.version>2.0.0</mybatis.version>
         <springboot.version>2.2.11.RELEASE</springboot.version>
         <druid.version>1.1.10</druid.version>
+        <pageHepler.version>1.2.10</pageHepler.version>
     </properties>
 
     <modules>
@@ -85,6 +86,12 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${druid.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pageHepler.version}</version>
             </dependency>
 
         </dependencies>

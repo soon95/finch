@@ -1,10 +1,12 @@
 package org.leon.finch.mapper;
 
 
+import com.github.pagehelper.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.leon.finch.Foo;
-import org.leon.finch.FooMapper;
+import org.leon.finch.common.result.SortDirection;
+import org.leon.finch.dal.Foo;
+import org.leon.finch.dal.FooMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -111,6 +113,22 @@ public class FooMapperTest {
         List<Foo> foos = fooMapper.selectByIds(ids);
 
         log.info("测试结果，foos:{}", foos);
+
+    }
+
+    @Test
+    public void testPage() {
+
+        Page<Foo> page = fooMapper.page(
+                1,
+                5,
+                null,
+                null,
+                SortDirection.DESC,
+                null,
+                null);
+
+        log.info("测试结果，page:{}", page);
 
     }
 
