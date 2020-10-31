@@ -87,13 +87,20 @@
     <update id="update" parameterType="org.leon.finch.Foo">
 
         UPDATE foo
-        SET
-
-        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
-        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
-        name = #{name,jdbcType=VARCHAR},
-        age = #{age,jdbcType=INTEGER}
-
+        <set>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                age = #{age,jdbcType=INTEGER},
+            </if>
+        </set>
         WHERE
         id = #{id,jdbcType=BIGINT}
 

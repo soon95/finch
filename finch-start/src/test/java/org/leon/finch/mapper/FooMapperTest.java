@@ -8,6 +8,9 @@ import org.leon.finch.FooMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Leon Song
  * @date 2020-10-31
@@ -22,16 +25,37 @@ public class FooMapperTest {
     @Test
     public void testInsert() {
 
-        log.info("执行测试");
-
         Foo foo = new Foo();
-        foo.setName("leon");
-        foo.setAge(18);
+        foo.setName("田螺姑娘");
+        foo.setAge(20);
 
         int res = fooMapper.insert(foo);
 
         log.info("测试结果，修改:{} 条记录", res);
     }
+
+    @Test
+    public void testBatchInsert() {
+
+        Foo foo1 = new Foo();
+        foo1.setName("joy");
+        foo1.setAge(18);
+
+        Foo foo2 = new Foo();
+        foo2.setName("齐天大圣");
+        foo2.setAge(1000);
+
+        List<Foo> foos = new ArrayList<>();
+        foos.add(foo1);
+        foos.add(foo2);
+
+        int res = fooMapper.batchInsert(foos);
+
+        log.info("测试结果，修改:{} 条记录", res);
+
+    }
+
+
 
     @Test
     public void testDeleteById() {
@@ -40,6 +64,53 @@ public class FooMapperTest {
 
         log.info("测试结果，修改:{} 条记录", res);
 
+    }
+
+    @Test
+    public void testDeleteByIds() {
+
+        List<Long> ids = new ArrayList<>();
+        ids.add(4L);
+        ids.add(5L);
+
+        int res = fooMapper.deleteByIds(ids);
+
+        log.info("测试结果，修改:{} 条记录", res);
+
+    }
+
+    @Test
+    public void testUpdate() {
+
+        Foo foo = new Foo();
+        foo.setId(7L);
+        foo.setAge(1000);
+
+        int res = fooMapper.update(foo);
+
+        log.info("测试结果，修改:{} 条记录", res);
+
+    }
+
+    @Test
+    public void testSelectById() {
+
+        Foo foo = fooMapper.selectById(6L);
+
+        log.info("测试结果，foo:{}", foo);
+
+    }
+
+    @Test
+    public void testSelectByIds() {
+
+        List<Long> ids = new ArrayList<>();
+        ids.add(6L);
+        ids.add(7L);
+
+        List<Foo> foos = fooMapper.selectByIds(ids);
+
+        log.info("测试结果，foos:{}", foos);
 
     }
 
