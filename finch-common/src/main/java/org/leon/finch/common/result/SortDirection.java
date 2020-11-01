@@ -1,5 +1,7 @@
 package org.leon.finch.common.result;
 
+import org.leon.finch.common.util.StringUtil;
+
 import java.util.Locale;
 
 /**
@@ -25,7 +27,13 @@ public enum SortDirection {
     }
 
     public static SortDirection getDirection(String value) {
-        return SortDirection.valueOf(value.toUpperCase(Locale.US));
+        try {
+            return SortDirection.valueOf(value.toUpperCase(Locale.US));
+        } catch (Exception e) {
+            throw new IllegalArgumentException(StringUtil.format(
+                    "Invalid value '%s' for orders given! Has to be either 'desc' or 'asc' (case insensitive).", value), e);
+        }
+
     }
 
 }

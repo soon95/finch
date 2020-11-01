@@ -35,6 +35,7 @@
         <module>finch-start</module>
         <module>finch-common</module>
         <module>finch-dal</module>
+        <module>finch-service</module>
     </modules>
 
     <dependencyManagement>
@@ -56,6 +57,12 @@
             <dependency>
                 <groupId>org.leon.finch</groupId>
                 <artifactId>finch-dal</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.leon.finch</groupId>
+                <artifactId>finch-service</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
 
