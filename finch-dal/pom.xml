@@ -7,13 +7,12 @@
         <groupId>org.leon.finch</groupId>
         <artifactId>finch</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>org.leon.finch</groupId>
     <artifactId>finch-dal</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>finch-dal</name>
+    <packaging>jar</packaging>
 
 
     <dependencies>
