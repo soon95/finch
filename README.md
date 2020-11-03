@@ -1,19 +1,32 @@
-# Getting Started
+# 项目简介
+**工作中一些最佳实践的汇总**，希望代码丝滑柔顺
 
-### Reference Documentation
-For further reference, please consider the following sections:
+目前包含的有：
+* pom工程模块组织
+* 数据访问层相关
+    * 增删改查
+    * 分页查询
+* 日志相关配置
+* 全局异常处理相关
+* docker部署
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.2.11.RELEASE/maven-plugin/)
-* [Spring Configuration Processor](https://docs.spring.io/spring-boot/docs/2.3.5.RELEASE/reference/htmlsingle/#configuration-metadata-annotation-processor)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/2.3.5.RELEASE/reference/htmlsingle/#boot-features-developing-web-applications)
-* [Spring Boot DevTools](https://docs.spring.io/spring-boot/docs/2.3.5.RELEASE/reference/htmlsingle/#using-boot-devtools)
-
-### Guides
-The following guides illustrate how to use some features concretely:
-
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
-* [Accessing data with MySQL](https://spring.io/guides/gs/accessing-data-mysql/)
-
+# 快速部署
+1. 拉取docker镜像
+    ```bash
+    docker pull registry.cn-hangzhou.aliyuncs.com/leonsong95/finch:[最新版本号]
+    ```
+2. 运行容器
+    ```bash
+    docker run --name myfinch -v /root/data/logs:/root/logs -p 8080:8080 -d registry.cn-hangzhou.aliyuncs.com/leonsong95/finch:[最新版本号]
+    ```
+    这里挂在了日志文件到宿主机
+    
+# 快速构建
+1. 打包镜像
+    ```bash
+    docker build -t finch:[最新版本号] .
+    ```
+2. 推到阿里云镜像仓库
+    ```bash
+    docker push registry.cn-hangzhou.aliyuncs.com/leonsong95/finch:[最新版本号]
+    ```
