@@ -1,4 +1,4 @@
-package org.leon.finch.dal;
+package org.leon.finch.dal.foo;
 
 import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;

@@ -1,4 +1,4 @@
-package org.leon.finch.dal;
+package org.leon.finch.dal.foo;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

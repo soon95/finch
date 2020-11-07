@@ -5,8 +5,8 @@ import com.github.pagehelper.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.leon.finch.common.result.SortDirection;
-import org.leon.finch.dal.Foo;
-import org.leon.finch.dal.FooMapper;
+import org.leon.finch.dal.foo.Foo;
+import org.leon.finch.dal.foo.FooMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
