@@ -27,6 +27,11 @@
             <artifactId>finch-dal</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.leon.finch</groupId>
+            <artifactId>finch-start</artifactId>
+        </dependency>
+
     </dependencies>
 
 

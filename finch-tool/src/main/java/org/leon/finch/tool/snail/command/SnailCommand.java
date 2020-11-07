@@ -213,14 +213,5 @@ public class SnailCommand {
 
     }
 
-    public static void main(String[] args) {
-        SnailCommand foo = new SnailCommand("foo");
-
-        foo.prepare();
-
-        System.out.println(foo);
-
-    }
-
 
 }
