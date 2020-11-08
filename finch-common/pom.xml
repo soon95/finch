@@ -34,7 +34,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <!--  这里不指定版本，mvn会标红，我也不知道为啥，可能是找到了多个版本的原因  -->
+            <!--  TODO：这里不指定版本，maven会报错，十分奇怪，有空研究一下 -->
             <version>${guava.version}</version>
         </dependency>
 
@@ -51,7 +51,6 @@
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>${commons-io.version}</version>
         </dependency>
 
     </dependencies>

@@ -131,11 +131,6 @@ public class SnailHelper {
         return content;
     }
 
-    public static void main(String[] args) {
-        String cont = getTemplateFileContent("TemplateEntityJava.vm");
-        System.out.println(cont);
-    }
-
     private void generateFile(String templateName, Doraemon doraemon) {
 
     }
