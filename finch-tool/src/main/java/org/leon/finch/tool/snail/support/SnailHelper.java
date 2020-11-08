@@ -3,13 +3,16 @@ package org.leon.finch.tool.snail.support;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.leon.finch.common.util.PathUtil;
 import org.leon.finch.tool.snail.SnailGenerator;
 import org.leon.finch.tool.snail.command.SnailCommand;
 import org.leon.finch.tool.snail.meta.SnailColumn;
 import org.leon.finch.tool.snail.meta.SnailTable;
 
 import javax.sql.DataSource;
+import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -110,8 +113,30 @@ public class SnailHelper {
         return tables;
     }
 
-    private void generateFile(String templateName, Doraemon doraemon) {
+    /**
+     * 根据模板名获取模板内容
+     */
+    @SneakyThrows
+    private static String getTemplateFileContent(String fileName) {
 
+        String filePath = PathUtil.getModuleHomePath(fileName) + "/src/main/resources/" + fileName;
+
+        FileReader fileReader = new FileReader(filePath);
+
+
+        String content = IOUtils.toString(fileReader);
+
+        fileReader.close();
+
+        return content;
+    }
+
+    public static void main(String[] args) {
+        String cont = getTemplateFileContent("TemplateEntityJava.vm");
+        System.out.println(cont);
+    }
+
+    private void generateFile(String templateName, Doraemon doraemon) {
 
     }
 

@@ -29,7 +29,10 @@
         <pagehepler.version>1.2.10</pagehepler.version>
         <commons-lang3.version>3.8.1</commons-lang3.version>
         <commons-codec.version>1.10</commons-codec.version>
-        <guava.version>22.0</guava.version>
+        <!--    commons-io和guava 版本间兼容性有点问题，当前设置版本兼容    -->
+        <commons-io.version>2.6</commons-io.version>
+        <guava.version>27.0.1-jre</guava.version>
+        <velocity.version>1.7</velocity.version>
     </properties>
 
     <modules>
@@ -128,6 +131,18 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.velocity</groupId>
+                <artifactId>velocity</artifactId>
+                <version>${velocity.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
             </dependency>
 
         </dependencies>
