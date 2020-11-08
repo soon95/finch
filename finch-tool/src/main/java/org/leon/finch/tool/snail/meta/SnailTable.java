@@ -16,8 +16,19 @@ import java.util.List;
 @AllArgsConstructor
 public class SnailTable {
 
+    /**
+     * 表名
+     */
     private String name;
 
+    /**
+     * 表注释
+     */
+    private String remarks;
+
+    /**
+     * 表中字段
+     */
     private List<SnailColumn> columns = new ArrayList<>();
 
 

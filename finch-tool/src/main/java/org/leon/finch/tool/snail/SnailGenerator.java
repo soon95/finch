@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 代码生成器主类
+ *
  * @author Leon Song
  * @date 2020-11-06
  */
@@ -45,6 +47,12 @@ public class SnailGenerator {
      */
     private void snailCommandConfig() {
 
+        SnailCommand command = new SnailCommand("foo");
+
+        /**
+         * 生成foo表对应文件
+         */
+        this.snailCommands.add(command);
 
     }
 

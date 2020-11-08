@@ -105,7 +105,7 @@ public class SnailCommand {
     /**
      * 是否需要entity文件
      */
-    private boolean needEntityJava = true;
+    private boolean needEntity = true;
 
     /**
      * 是否需要form文件
@@ -121,6 +121,26 @@ public class SnailCommand {
      * 是否需要mapper.xml文件
      */
     private boolean needMapperXml = true;
+
+    /**
+     * 是否覆盖所有
+     */
+    private boolean overwriteAll = false;
+
+    /**
+     * 是否覆盖entity
+     */
+    private Boolean overwriteEntity;
+
+    /**
+     * 是否覆盖mapperJava
+     */
+    private Boolean overwriteMapperJava;
+
+    /**
+     * 是否覆盖mapperXml
+     */
+    private Boolean overwriteMapperXml;
 
 
     public SnailCommand(@NonNull String tableName) {

@@ -59,6 +59,11 @@ public class SnailColumn {
     private Class<?> javaType;
 
     /**
+     * java全类名
+     */
+    private String javaFullClassName;
+
+    /**
      * 是否可排序
      */
     private boolean canSort = false;
@@ -88,6 +93,7 @@ public class SnailColumn {
 
         this.jdbcType = typeContrast.getJdbcType();
         this.javaType = typeContrast.getJavaType();
+        this.javaFullClassName = this.javaType.getName();
 
     }
 }
