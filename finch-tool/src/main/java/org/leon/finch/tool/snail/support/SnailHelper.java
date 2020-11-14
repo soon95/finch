@@ -136,7 +136,7 @@ public class SnailHelper {
      * 这里随便以一个模板为指南针，找到当前所在的包路径
      */
     private String getSourceFilePath(String fileName) {
-        return PathUtil.getModuleHomePath(TEMPLATE_ENTITY_JAVA) + "/src/main/resources" + fileName;
+        return PathUtil.getModuleHomePath(TEMPLATE_ENTITY_JAVA) + "/src/main/resources/" + fileName;
     }
 
     /**

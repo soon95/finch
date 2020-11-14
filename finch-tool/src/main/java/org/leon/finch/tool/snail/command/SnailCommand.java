@@ -239,7 +239,7 @@ public class SnailCommand {
      */
     public String getEntityAbsolutePath() {
 
-        String directoryPath = PathUtil.getAppHomePath() + "/" + this.getDalPackage() + "/src/main/java/" + this.entityPackage.replaceAll("\\.", "/");
+        String directoryPath = PathUtil.getAppHomePath() + "/" + this.getDalModuleName() + "/src/main/java/" + this.entityPackage.replaceAll("\\.", "/");
 
         String safeDirectoryPath = PathUtil.getSafeDirectoryPath(directoryPath);
 

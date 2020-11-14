@@ -189,10 +189,10 @@ public class Doraemon {
         this.selfColumns = new ArrayList<>();
         this.columns.forEach((column -> {
             // 这三个字段是在基类中的
-            if (StringUtil.equals("id", column.getName()) ||
+            if (!(StringUtil.equals("id", column.getName()) ||
                     StringUtil.equals("gmt_create", column.getName()) ||
                     StringUtil.equals("gmt_modified", column.getName()) ||
-                    this.ignoreFields.contains(column.getName())) {
+                    this.ignoreFields.contains(column.getName()))) {
 
                 this.selfColumns.add(column);
 
@@ -215,9 +215,16 @@ public class Doraemon {
             if (!StringUtil.startsWith(javaFullClassName, "java.lang")) {
 
                 if (StringUtil.startsWith(javaFullClassName, "java")) {
-                    this.entityImportJavas.add(javaFullClassName);
+
+                    if (!this.entityImportJavas.contains(javaFullClassName)){
+                        this.entityImportJavas.add(javaFullClassName);
+                    }
+
                 } else {
-                    this.entityImportNonJavas.add(javaFullClassName);
+
+                    if (!this.entityImportNonJavas.contains(javaFullClassName)){
+                        this.entityImportNonJavas.add(javaFullClassName);
+                    }
                 }
             }
         }));

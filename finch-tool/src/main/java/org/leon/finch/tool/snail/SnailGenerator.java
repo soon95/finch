@@ -48,7 +48,7 @@ public class SnailGenerator {
     private void snailCommandConfig() {
 
         SnailCommand command = new SnailCommand("foo");
-
+        command.setOverwriteEntity(true);
         /**
          * 生成foo表对应文件
          */
