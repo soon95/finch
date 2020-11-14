@@ -234,4 +234,28 @@ public class SnailCommand {
     }
 
 
+    /**
+     * 获取到entity文件的绝对路径
+     */
+    public String getEntityAbsolutePath() {
+
+        String directoryPath = PathUtil.getAppHomePath() + "/" + this.getDalPackage() + "/src/main/java/" + this.entityPackage.replaceAll("\\.", "/");
+
+        String safeDirectoryPath = PathUtil.getSafeDirectoryPath(directoryPath);
+
+        return safeDirectoryPath + "/" + this.entityUpperClassName + ".java";
+    }
+
+    /**
+     * 有具体的就覆盖全局的
+     */
+    public boolean getOverwriteEntity() {
+        if (null == this.overwriteEntity) {
+            return this.overwriteAll;
+        } else {
+            return this.overwriteEntity;
+        }
+    }
+
+
 }

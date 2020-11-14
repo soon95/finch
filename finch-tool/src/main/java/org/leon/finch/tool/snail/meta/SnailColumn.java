@@ -14,7 +14,7 @@ import org.leon.finch.tool.snail.contrast.TypeContrast;
 public class SnailColumn {
 
     /**
-     * 字段名
+     * 字段名 下划线命名
      */
     private String name;
 
@@ -59,6 +59,12 @@ public class SnailColumn {
     private Class<?> javaType;
 
     /**
+     * 简单类名
+     * 例如 String
+     */
+    private String javaSimpleName;
+
+    /**
      * java全类名
      */
     private String javaFullClassName;
@@ -93,6 +99,7 @@ public class SnailColumn {
 
         this.jdbcType = typeContrast.getJdbcType();
         this.javaType = typeContrast.getJavaType();
+        this.javaSimpleName = this.javaType.getSimpleName();
         this.javaFullClassName = this.javaType.getName();
 
     }

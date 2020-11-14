@@ -1,5 +1,6 @@
 package org.leon.finch.common.util;
 
+import lombok.SneakyThrows;
 import org.leon.finch.common.exception.BadRequestException;
 
 import java.net.URL;
@@ -112,5 +113,21 @@ public class PathUtil {
         return Files.exists(path);
     }
 
+
+    /**
+     * 获取一个安全的文件夹路径
+     * 没有则创建
+     */
+    @SneakyThrows
+    public static String getSafeDirectoryPath(String directoryPath) {
+
+        Path path = Paths.get(directoryPath);
+
+        if (!Files.exists(path)) {
+            Files.createDirectories(path);
+        }
+
+        return directoryPath;
+    }
 
 }

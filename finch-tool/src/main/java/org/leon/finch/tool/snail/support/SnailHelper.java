@@ -7,6 +7,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.leon.finch.common.util.JsonUtil;
 import org.leon.finch.common.util.PathUtil;
+import org.leon.finch.common.util.TemplateUtil;
 import org.leon.finch.tool.snail.SnailGenerator;
 import org.leon.finch.tool.snail.command.SnailCommand;
 import org.leon.finch.tool.snail.meta.SnailColumn;
@@ -14,6 +15,7 @@ import org.leon.finch.tool.snail.meta.SnailTable;
 
 import javax.sql.DataSource;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -129,23 +131,71 @@ public class SnailHelper {
         return content;
     }
 
-    private void generateFile(String templateName, Doraemon doraemon) {
+    /**
+     * 获得模板的路径
+     * 这里随便以一个模板为指南针，找到当前所在的包路径
+     */
+    private String getSourceFilePath(String fileName) {
+        return PathUtil.getModuleHomePath(TEMPLATE_ENTITY_JAVA) + "/src/main/resources" + fileName;
+    }
 
+    /**
+     * 拿到模板内容
+     */
+    @SneakyThrows
+    private String getResourceFileContent(String fileName) {
+
+        String filePath = getSourceFilePath(fileName);
+
+        FileReader fileReader = new FileReader(filePath);
+
+        String content = IOUtils.toString(fileReader);
+
+        fileReader.close();
+
+        return content;
+    }
+
+    @SneakyThrows
+    private void writeFileContent(String filePath, String content) {
+
+        FileWriter fileWriter = new FileWriter(filePath);
+
+        IOUtils.write(content, fileWriter);
+
+        fileWriter.close();
 
     }
 
-    private void generateFile(String templateName, Doraemon doraemon, String filePath) {
+    /**
+     * 渲染模板
+     */
+    private void renderTemplate(String templateName, Map<String, Object> params, String filePath) {
+
+        String template = getResourceFileContent(templateName);
+
+        String content = TemplateUtil.render(template, params);
+
+        writeFileContent(filePath, content);
+    }
+
+    private void generateFile(String templateName, Doraemon doraemon, String filePath, boolean overwrite) {
 
         Map<String, Object> params = JsonUtil.objectToMap(doraemon);
 
         if (PathUtil.isExist(filePath)) {
+            if (overwrite) {
 
+                this.renderTemplate(templateName, params, filePath);
+
+            } else {
+                log.info("文件已经存在，取消自动生成；你可以通过设置 overwrite=true 来覆盖文件，文件路径为:{}", filePath);
+            }
         } else {
 
+            this.renderTemplate(templateName, params, filePath);
 
         }
-
-
     }
 
     /**
@@ -163,11 +213,11 @@ public class SnailHelper {
             }
         }
 
-        // 达到所有生成文件的原材料
+        // 拿到所有生成文件的原材料
         Doraemon doraemon = new Doraemon(command, table);
 
         if (command.isNeedEntity()) {
-            this.generateFile(TEMPLATE_ENTITY_JAVA, doraemon);
+            this.generateFile(TEMPLATE_ENTITY_JAVA, doraemon, command.getEntityAbsolutePath(), command.getOverwriteEntity());
         } else {
             log.info("表 {} 不需要生成Entity，已跳过!", command.getTableName());
         }
