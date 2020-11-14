@@ -5,6 +5,7 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.leon.finch.common.util.JsonUtil;
 import org.leon.finch.common.util.PathUtil;
 import org.leon.finch.tool.snail.SnailGenerator;
 import org.leon.finch.tool.snail.command.SnailCommand;
@@ -16,10 +17,7 @@ import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Leon Song
@@ -132,6 +130,21 @@ public class SnailHelper {
     }
 
     private void generateFile(String templateName, Doraemon doraemon) {
+
+
+    }
+
+    private void generateFile(String templateName, Doraemon doraemon, String filePath) {
+
+        Map<String, Object> params = JsonUtil.objectToMap(doraemon);
+
+        if (PathUtil.isExist(filePath)) {
+
+        } else {
+
+
+        }
+
 
     }
 

@@ -3,6 +3,8 @@ package org.leon.finch.common.util;
 import org.leon.finch.common.exception.BadRequestException;
 
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
@@ -98,6 +100,16 @@ public class PathUtil {
         int index = packagePath.lastIndexOf(".");
         return packagePath.substring(0, index);
 
+    }
+
+    /**
+     * 判断文件是否存在
+     */
+    public static boolean isExist(String filePath) {
+
+        Path path = Paths.get(filePath);
+
+        return Files.exists(path);
     }
 
 

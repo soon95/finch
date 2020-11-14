@@ -19,6 +19,7 @@ import java.util.List;
  * @author Leon Song
  * @date 2020-11-08
  */
+@Data
 public class Doraemon {
 
     /**
