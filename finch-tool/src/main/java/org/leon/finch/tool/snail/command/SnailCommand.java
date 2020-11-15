@@ -83,9 +83,9 @@ public class SnailCommand {
     private String xmlName;
 
     /**
-     * 排序字段
+     * equal筛选字段
      */
-    private List<String> pageOrderFields;
+    private List<String> pageEqualFields;
 
     /**
      * like筛选字段
@@ -93,9 +93,9 @@ public class SnailCommand {
     private List<String> pageLikeFields;
 
     /**
-     * equal筛选字段
+     * 排序字段
      */
-    private List<String> pageEqualFields;
+    private List<String> pageOrderFields;
 
     /**
      * 数据库中存在的字段，但是已经废弃了的
@@ -247,6 +247,19 @@ public class SnailCommand {
     }
 
     /**
+     * 获得mapper文件的绝对路径
+     */
+    public String getMapperJavaAbsolutePath() {
+
+        String directoryPath = PathUtil.getAppHomePath() + "/" + this.getDalModuleName() + "/src/main/java/" + this.mapperPackage.replaceAll("\\.", "/");
+
+        String safeDirectoryPath = PathUtil.getSafeDirectoryPath(directoryPath);
+
+        return safeDirectoryPath + "/" + this.mapperUpperClassName + ".java";
+
+    }
+
+    /**
      * 有具体的就覆盖全局的
      */
     public boolean getOverwriteEntity() {
@@ -254,6 +267,17 @@ public class SnailCommand {
             return this.overwriteAll;
         } else {
             return this.overwriteEntity;
+        }
+    }
+
+    /**
+     * 是否覆盖
+     */
+    public boolean getOverwriteMapperJava() {
+        if (null == this.overwriteMapperJava) {
+            return this.overwriteAll;
+        } else {
+            return this.overwriteMapperJava;
         }
     }
 

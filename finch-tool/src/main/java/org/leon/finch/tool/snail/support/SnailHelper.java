@@ -222,6 +222,10 @@ public class SnailHelper {
             log.info("表 {} 不需要生成Entity，已跳过!", command.getTableName());
         }
 
+        if (command.isNeedMapperJava()) {
+            this.generateFile(TEMPLATE_MAPPER_JAVA, doraemon, command.getMapperJavaAbsolutePath(), command.getOverwriteMapperJava());
+        }
+
 
     }
 

@@ -1,16 +1,23 @@
 package org.leon.finch.tool.snail.support;
 
+import com.github.pagehelper.Page;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.leon.finch.common.result.SortDirection;
 import org.leon.finch.common.util.StringUtil;
 import org.leon.finch.dal.base.BaseEntity;
+import org.leon.finch.dal.base.BaseMapper;
 import org.leon.finch.tool.snail.command.SnailCommand;
 import org.leon.finch.tool.snail.meta.SnailColumn;
 import org.leon.finch.tool.snail.meta.SnailTable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 哆啦A梦
@@ -142,20 +149,19 @@ public class Doraemon {
     private String xmlName;
 
     /**
-     * 排序字段
+     * equal筛选字段
      */
-    private List<String> pageOrderFields;
+    private List<SnailColumn> pageEqualColumns;
 
     /**
      * like筛选字段
      */
-    private List<String> pageLikeFields;
+    private List<SnailColumn> pageLikeColumns;
 
     /**
-     * equal筛选字段
+     * 排序字段
      */
-    private List<String> pageEqualFields;
-
+    private List<SnailColumn> pageOrderColumns;
 
     /**
      * 将所有有用信息在这里回填
@@ -216,19 +222,59 @@ public class Doraemon {
 
                 if (StringUtil.startsWith(javaFullClassName, "java")) {
 
-                    if (!this.entityImportJavas.contains(javaFullClassName)){
+                    if (!this.entityImportJavas.contains(javaFullClassName)) {
                         this.entityImportJavas.add(javaFullClassName);
                     }
 
                 } else {
 
-                    if (!this.entityImportNonJavas.contains(javaFullClassName)){
+                    if (!this.entityImportNonJavas.contains(javaFullClassName)) {
                         this.entityImportNonJavas.add(javaFullClassName);
                     }
                 }
             }
         }));
 
+        // 顺便排一下序
+        this.entityImportNonJavas.sort(StringUtil::compare);
+        this.entityImportJavas.sort(StringUtil::compare);
+
+
+        // 处理mapper需要引入的包
+        this.mapperImportNonJava = new ArrayList<>();
+        this.mapperImportNonJava.add(BaseMapper.class.getName());
+        this.mapperImportNonJava.add(Page.class.getName());
+        this.mapperImportNonJava.add(Mapper.class.getName());
+        this.mapperImportNonJava.add(Param.class.getName());
+        this.mapperImportNonJava.add(SortDirection.class.getName());
+
+        this.mapperImportJava = new ArrayList<>();
+
+        this.mapperImportNonJava.sort(StringUtil::compare);
+        this.mapperImportJava.sort(StringUtil::compare);
+
+
+        // 处理分页排序字段
+        this.initPageColumns(command.getPageEqualFields());
+        this.initPageColumns(command.getPageLikeFields());
+        this.initPageColumns(command.getPageOrderFields());
+
+    }
+
+    /**
+     * 初始化分页字段
+     * <p>
+     * 根据数据库字段名组装
+     */
+    private void initPageColumns(List<String> pageFields) {
+        Map<String, SnailColumn> map = new HashMap<>();
+        this.columns.forEach(column -> map.put(column.getName(), column));
+
+        pageFields.forEach(field -> {
+            if (map.containsKey(field)) {
+                this.pageEqualColumns.add(map.get(field));
+            }
+        });
 
     }
 

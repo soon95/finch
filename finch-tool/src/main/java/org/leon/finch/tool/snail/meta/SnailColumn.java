@@ -59,7 +59,7 @@ public class SnailColumn {
     private Class<?> javaType;
 
     /**
-     * 简单类名
+     * 简单类型
      * 例如 String
      */
     private String javaSimpleName;
