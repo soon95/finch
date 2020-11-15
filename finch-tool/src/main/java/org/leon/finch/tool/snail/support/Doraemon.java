@@ -255,9 +255,9 @@ public class Doraemon {
 
 
         // 处理分页排序字段
-        this.initPageColumns(command.getPageEqualFields());
-        this.initPageColumns(command.getPageLikeFields());
-        this.initPageColumns(command.getPageOrderFields());
+        this.pageEqualColumns = this.getPageColumns(command.getPageEqualFields());
+        this.pageLikeColumns = this.getPageColumns(command.getPageLikeFields());
+        this.pageOrderColumns = this.getPageColumns(command.getPageOrderFields());
 
     }
 
@@ -266,16 +266,19 @@ public class Doraemon {
      * <p>
      * 根据数据库字段名组装
      */
-    private void initPageColumns(List<String> pageFields) {
+    private List<SnailColumn> getPageColumns(List<String> pageFields) {
         Map<String, SnailColumn> map = new HashMap<>();
         this.columns.forEach(column -> map.put(column.getName(), column));
 
+        List<SnailColumn> snailColumns = new ArrayList<>();
+
         pageFields.forEach(field -> {
             if (map.containsKey(field)) {
-                this.pageEqualColumns.add(map.get(field));
+                snailColumns.add(map.get(field));
             }
         });
 
+        return snailColumns;
     }
 
 }
