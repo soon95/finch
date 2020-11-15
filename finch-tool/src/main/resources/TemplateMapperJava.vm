@@ -1,4 +1,4 @@
-package ${mapperPackage}
+package ${mapperPackage};
 
 #foreach($item in $mapperImportNonJava)
 import ${item};
@@ -23,16 +23,16 @@ public interface ${mapperUpperClassName} extends BaseMapper<${entityUpperClassNa
     /**
      * 分页查询
      *
-     * @param pageNum          页数
-     * @param pageSize         页面展示数量
+     * @param pageNum    页数
+     * @param pageSize    页面展示数量
 #foreach($column in $pageEqualColumns)
-     * @param ${column.lowerCamelName} ${column.remark}，精确查找
+     * @param ${column.lowerCamelName}    ${column.remark}，精确查找
 #end
 #foreach($column in $pageLikeColumns)
-     * @param ${column.lowerCamelName} ${column.remark}，模糊查找
+     * @param ${column.lowerCamelName}    ${column.remark}，模糊查找
 #end
 #foreach($column in $pageOrderColumns)
-     * @param ${column.lowerCamelName} ${column.remark}，排序字段
+     * @param order${column.upperCamelName}    ${column.remark}，排序字段
 #end
      * @return 分页对象
      */
@@ -48,9 +48,10 @@ public interface ${mapperUpperClassName} extends BaseMapper<${entityUpperClassNa
 #end
 #end
 #foreach($column in $pageOrderColumns)
-        @Param("${column.lowerCamelName}") ${column.javaSimpleName} ${column.lowerCamelName}#if($foreach.hasNext),
+        @Param("${column.lowerCamelName}") SortDirection order${column.upperCamelName}#if($foreach.hasNext),
 #end
 #end
-        );
+
+    );
 
 }
