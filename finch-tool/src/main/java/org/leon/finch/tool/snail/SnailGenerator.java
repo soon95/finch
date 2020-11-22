@@ -49,8 +49,8 @@ public class SnailGenerator {
 
         SnailCommand command = new SnailCommand("foo");
         command.setOverwriteEntity(true);
-        command.setOverwriteMapperJava(true);
-        command.setOverwriteMapperXml(true);
+        command.setOverwriteMapperJava(false);
+        command.setOverwriteMapperXml(false);
         command.setPageEqualFields(new ArrayList<String>(){{
             add("age");
         }});
