@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="${mapperFullClassName}">
+
+    <!--  定义数据库对象与视图的字段映射关系  -->
+    <resultMap id="baseResultMap" type="${entityFullClassName}">
+        #foreach($column in $columns)
+            #if($column.primaryKey)
+        <id column="${column.name}" jdbcType="${jdbcType}" property="${lowerCamelName}"/>
+            #else
+        <result column="${column.name}" jdbcType="${jdbcType}" property="${lowerCamelName}"/>
+            #end
+        #end
+    </resultMap>
+
+    <!--  定义数据库中有效字段，因为可能有些字段被废弃了  -->
+    <sql id="allColumns">
+        #foreach($column in $columns)${column.name}#if($foreach.hasNext), #end#end
+    </sql>
+
+    <insert id="insert" parameterType="${entityFullClassName}">
+
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+
+        INSERT INTO ${tableName} (
+        #foreach($column in $columns)#if(!$column.primaryKey)${column.name}#if($foreach.hasNext), #end#end#end
+        ) VALUES (
+        #foreach($column in $columns)
+        #if(!$column.primaryKey)
+        #{${column.lowerCamelName},jdbcType=${column.jdbcType}#if($foreach.hasNext), #end
+        #end
+        #end
+        )
+
+    </insert>
+
+    <insert id="batchInsert" parameterType="java.util.List">
+
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+
+        INSERT INTO ${tableName} (
+        #foreach($column in $columns)#if(!$column.primaryKey)${column.name}#if($foreach.hasNext), #end#end#end
+        ) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #foreach($column in $columns)
+            #if(!$column.primaryKey)
+            #{item.${column.lowerCamelName},jdbcType=${column.jdbcType}#if($foreach.hasNext), #end
+            #end
+            #end
+            )
+        </foreach>
+
+    </insert>
+
+    <delete id="deleteById" parameterType="java.lang.Long">
+
+        DELETE FROM ${tableName}
+        WHERE id = #{id,jdbcType=BIGINT}
+
+    </delete>
+
+    <delete id="deleteByIds" parameterType="java.util.List">
+
+        DELETE FROM ${tableName}
+        WHERE
+        <choose>
+
+            <when test="list == null || list.isEmpty()">
+                1 = 0
+            </when>
+
+            <otherwise>
+                id IN
+                <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+                    #{id}
+                </foreach>
+
+            </otherwise>
+
+        </choose>
+
+    </delete>
+
+    <update id="update" parameterType="${entityFullClassName}">
+
+        UPDATE ${tableName}
+        <set>
+            #foreach($column in $columns)
+            #if(!$column.primaryKey)
+            <if test="${column.lowerCamelName} != null">
+                ${column.name} = #{${column.lowerCamelName},jdbcType=${column.jdbcType}
+            </if>
+            #end
+            #end
+        </set>
+        WHERE
+        id = #{id,jdbcType=BIGINT}
+
+    </update>
+
+    <select id="selectById" parameterType="java.lang.Long" resultMap="baseResultMap">
+
+        SELECT
+        <include refid="allColumns"/>
+        FROM ${tableName}
+        WHERE
+        id = #{id,jdbcType=BIGINT}
+
+    </select>
+
+    <select id="selectByIds" parameterType="java.util.List" resultMap="baseResultMap">
+
+        SELECT
+        <include refid="allColumns"/>
+        FROM ${tableName}
+        WHERE
+        <choose>
+
+            <when test="list == null || list.isEmpty()">
+                1 = 0
+            </when>
+
+            <otherwise>
+                id IN
+                <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+                    #{id}
+                </foreach>
+
+            </otherwise>
+
+        </choose>
+
+    </select>
+
+
+    <select id="page" resultType="${entityFullClassName}">
+
+        SELECT
+
+        <include refid="allColumns"/>
+
+        FROM foo
+
+        <where>
+
+            #foreach($column in $pageEqualColumns)
+            <if test="${column.lowerCamelName} != null">
+                AND ${column.name} = #{${column.lowerCamelName}}
+            </if>
+            #end
+            #foreach($column in $pageLikeColumns)
+            <if test="${column.lowerCamelName} != null">
+                AND ${column.name} LIKE CONCAT('%',#{${column.lowerCamelName}},'%')
+            </if>
+            #end
+
+        </where>
+        <choose>
+
+            #foreach($column in $pageOrderColumns)
+            <when test="${column.lowerCamelName} != null and ${column.lowerCamelName}.name() == 'ASC'">
+                ORDER BY ${column.name} ASC
+            </when>
+            <when test="${column.lowerCamelName} != null and ${column.lowerCamelName}.name() == 'DESC'">
+                ORDER BY ${column.name} DESC
+            </when>
+            #end
+
+        </choose>
+
+    </select>
+
+
+</mapper>

@@ -224,6 +224,14 @@ public class SnailHelper {
 
         if (command.isNeedMapperJava()) {
             this.generateFile(TEMPLATE_MAPPER_JAVA, doraemon, command.getMapperJavaAbsolutePath(), command.getOverwriteMapperJava());
+        } else {
+            log.info("表 {} 不需要生成MapperJava，已跳过!", command.getTableName());
+        }
+
+        if (command.isNeedMapperXml()){
+            this.generateFile(TEMPLATE_MAPPER_XML,doraemon,command.getMapperXmlAbsolutePath(),command.getOverwriteMapperXml());
+        } else {
+            log.info("表 {} 不需要生成MapperXml，已跳过!", command.getTableName());
         }
 
 

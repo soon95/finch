@@ -260,6 +260,19 @@ public class SnailCommand {
     }
 
     /**
+     * 获得mapper xml文件的绝对路径
+     */
+    public String getMapperXmlAbsolutePath(){
+
+        String directoryPath=PathUtil.getAppHomePath()+"/"+this.getDalModuleName()+"/src/main/resources/"+this.xmlFolder;
+
+        String safeDirectoryPath = PathUtil.getSafeDirectoryPath(directoryPath);
+
+        return safeDirectoryPath+"/"+this.xmlName+".xml";
+
+    }
+
+    /**
      * 有具体的就覆盖全局的
      */
     public boolean getOverwriteEntity() {
@@ -278,6 +291,17 @@ public class SnailCommand {
             return this.overwriteAll;
         } else {
             return this.overwriteMapperJava;
+        }
+    }
+
+    /**
+     * 是否覆盖
+     */
+    public boolean getOverwriteMapperXml(){
+        if (null == this.overwriteMapperXml) {
+            return this.overwriteAll;
+        } else {
+            return this.overwriteMapperXml;
         }
     }
 
