@@ -50,6 +50,14 @@ public class SnailGenerator {
         SnailCommand command = new SnailCommand("foo");
         command.setOverwriteEntity(true);
         command.setOverwriteMapperJava(true);
+        command.setOverwriteMapperXml(true);
+        command.setPageEqualFields(new ArrayList<String>(){{
+            add("age");
+        }});
+        command.setPageLikeFields(new ArrayList<String>(){{
+            add("name");
+        }});
+
         /**
          * 生成foo表对应文件
          */

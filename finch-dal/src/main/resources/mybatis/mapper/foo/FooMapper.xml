@@ -18,7 +18,6 @@
 
     <insert id="insert" parameterType="org.leon.finch.dal.foo.Foo">
 
-        -- 解决数据库不支持自增主键的情况
         <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
             SELECT LAST_INSERT_ID() AS id
         </selectKey>
@@ -26,10 +25,9 @@
         INSERT INTO foo (
         gmt_create, gmt_modified, name, age
         ) VALUES (
-        -- 防止空值，因此标注上jdbcType
-        #{gmtCreate,jdbcType=TIMESTAMP},
-        #{gmtModified,jdbcType=TIMESTAMP},
-        #{name,jdbcType=VARCHAR},
+        #{gmtCreate,jdbcType=TIMESTAMP}, 
+        #{gmtModified,jdbcType=TIMESTAMP}, 
+        #{name,jdbcType=VARCHAR}, 
         #{age,jdbcType=INTEGER}
         )
 
@@ -46,9 +44,9 @@
         ) VALUES
         <foreach collection="list" item="item" index="index" separator=",">
             (
-            #{item.gmtCreate,jdbcType=TIMESTAMP},
-            #{item.gmtModified,jdbcType=TIMESTAMP},
-            #{item.name,jdbcType=VARCHAR},
+            #{item.gmtCreate,jdbcType=TIMESTAMP}, 
+            #{item.gmtModified,jdbcType=TIMESTAMP}, 
+            #{item.name,jdbcType=VARCHAR}, 
             #{item.age,jdbcType=INTEGER}
             )
         </foreach>
@@ -151,11 +149,11 @@
 
         <where>
 
-            <if test="name !=null and name != ''">
-                AND name LIKE CONCAT('%',#{name},'%')
-            </if>
             <if test="age != null">
                 AND age = #{age}
+            </if>
+            <if test="name != null">
+                AND name LIKE CONCAT('%',#{name},'%')
             </if>
 
         </where>
@@ -168,14 +166,12 @@
                 ORDER BY id DESC
             </when>
 
-
             <when test="orderGmtCreate != null and orderGmtCreate.name() == 'ASC'">
                 ORDER BY gmt_create ASC
             </when>
             <when test="orderGmtCreate != null and orderGmtCreate.name() == 'DESC'">
                 ORDER BY gmt_create DESC
             </when>
-
 
             <when test="orderGmtModified != null and orderGmtModified.name() == 'ASC'">
                 ORDER BY gmt_modified ASC

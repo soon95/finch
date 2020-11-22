@@ -28,8 +28,8 @@ public class FooMapperTest {
     public void testInsert() {
 
         Foo foo = new Foo();
-        foo.setName("田螺姑娘");
-        foo.setAge(20);
+        foo.setName("test");
+        foo.setAge(25);
 
         int res = fooMapper.insert(foo);
 
@@ -40,11 +40,11 @@ public class FooMapperTest {
     public void testBatchInsert() {
 
         Foo foo1 = new Foo();
-        foo1.setName("joy");
+        foo1.setName("test2");
         foo1.setAge(18);
 
         Foo foo2 = new Foo();
-        foo2.setName("齐天大圣");
+        foo2.setName("test3");
         foo2.setAge(1000);
 
         List<Foo> foos = new ArrayList<>();
@@ -62,7 +62,7 @@ public class FooMapperTest {
     @Test
     public void testDeleteById() {
 
-        int res = fooMapper.deleteById(2L);
+        int res = fooMapper.deleteById(36L);
 
         log.info("测试结果，修改:{} 条记录", res);
 
@@ -72,8 +72,8 @@ public class FooMapperTest {
     public void testDeleteByIds() {
 
         List<Long> ids = new ArrayList<>();
-        ids.add(4L);
-        ids.add(5L);
+        ids.add(37L);
+        ids.add(38L);
 
         int res = fooMapper.deleteByIds(ids);
 
@@ -87,6 +87,7 @@ public class FooMapperTest {
         Foo foo = new Foo();
         foo.setId(7L);
         foo.setAge(1000);
+        foo.setName("齐天大圣");
 
         int res = fooMapper.update(foo);
 
@@ -122,7 +123,7 @@ public class FooMapperTest {
         Page<Foo> page = fooMapper.page(
                 1,
                 5,
-                null,
+                24,
                 null,
                 SortDirection.DESC,
                 null,
