@@ -4,18 +4,19 @@
 
     <!--  定义数据库对象与视图的字段映射关系  -->
     <resultMap id="baseResultMap" type="${entityFullClassName}">
-        #foreach($column in $columns)
-            #if($column.primaryKey)
-        <id column="${column.name}" jdbcType="${jdbcType}" property="${lowerCamelName}"/>
-            #else
-        <result column="${column.name}" jdbcType="${jdbcType}" property="${lowerCamelName}"/>
-            #end
-        #end
+#foreach($column in $columns)
+#if($column.primaryKey)
+        <id column="${column.name}" jdbcType="${column.jdbcType}" property="${column.lowerCamelName}"/>
+#else
+        <result column="${column.name}" jdbcType="${column.jdbcType}" property="${column.lowerCamelName}"/>
+#end
+#end
     </resultMap>
 
     <!--  定义数据库中有效字段，因为可能有些字段被废弃了  -->
     <sql id="allColumns">
         #foreach($column in $columns)${column.name}#if($foreach.hasNext), #end#end
+
     </sql>
 
     <insert id="insert" parameterType="${entityFullClassName}">
@@ -26,12 +27,14 @@
 
         INSERT INTO ${tableName} (
         #foreach($column in $columns)#if(!$column.primaryKey)${column.name}#if($foreach.hasNext), #end#end#end
+
         ) VALUES (
-        #foreach($column in $columns)
-        #if(!$column.primaryKey)
+#foreach($column in $columns)
+#if(!$column.primaryKey)
         #{${column.lowerCamelName},jdbcType=${column.jdbcType}#if($foreach.hasNext), #end
-        #end
-        #end
+
+#end
+#end
         )
 
     </insert>
@@ -44,14 +47,16 @@
 
         INSERT INTO ${tableName} (
         #foreach($column in $columns)#if(!$column.primaryKey)${column.name}#if($foreach.hasNext), #end#end#end
+
         ) VALUES
         <foreach collection="list" item="item" index="index" separator=",">
             (
-            #foreach($column in $columns)
-            #if(!$column.primaryKey)
+#foreach($column in $columns)
+#if(!$column.primaryKey)
             #{item.${column.lowerCamelName},jdbcType=${column.jdbcType}#if($foreach.hasNext), #end
-            #end
-            #end
+
+#end
+#end
             )
         </foreach>
 
@@ -90,13 +95,13 @@
 
         UPDATE ${tableName}
         <set>
-            #foreach($column in $columns)
-            #if(!$column.primaryKey)
+#foreach($column in $columns)
+#if(!$column.primaryKey)
             <if test="${column.lowerCamelName} != null">
-                ${column.name} = #{${column.lowerCamelName},jdbcType=${column.jdbcType}
+                ${column.name} = #{${column.lowerCamelName},jdbcType=${column.jdbcType}},
             </if>
-            #end
-            #end
+#end
+#end
         </set>
         WHERE
         id = #{id,jdbcType=BIGINT}
@@ -144,32 +149,32 @@
 
         <include refid="allColumns"/>
 
-        FROM foo
+        FROM ${tableName}
 
         <where>
 
-            #foreach($column in $pageEqualColumns)
+#foreach($column in $pageEqualColumns)
             <if test="${column.lowerCamelName} != null">
                 AND ${column.name} = #{${column.lowerCamelName}}
             </if>
-            #end
-            #foreach($column in $pageLikeColumns)
+#end
+#foreach($column in $pageLikeColumns)
             <if test="${column.lowerCamelName} != null">
                 AND ${column.name} LIKE CONCAT('%',#{${column.lowerCamelName}},'%')
             </if>
-            #end
+#end
 
         </where>
         <choose>
 
-            #foreach($column in $pageOrderColumns)
+#foreach($column in $pageOrderColumns)
             <when test="${column.lowerCamelName} != null and ${column.lowerCamelName}.name() == 'ASC'">
                 ORDER BY ${column.name} ASC
             </when>
             <when test="${column.lowerCamelName} != null and ${column.lowerCamelName}.name() == 'DESC'">
                 ORDER BY ${column.name} DESC
             </when>
-            #end
+#end
 
         </choose>
 
