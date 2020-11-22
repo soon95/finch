@@ -262,13 +262,13 @@ public class SnailCommand {
     /**
      * 获得mapper xml文件的绝对路径
      */
-    public String getMapperXmlAbsolutePath(){
+    public String getMapperXmlAbsolutePath() {
 
-        String directoryPath=PathUtil.getAppHomePath()+"/"+this.getDalModuleName()+"/src/main/resources/"+this.xmlFolder;
+        String directoryPath = PathUtil.getAppHomePath() + "/" + this.getDalModuleName() + "/src/main/resources/" + this.xmlFolder;
 
         String safeDirectoryPath = PathUtil.getSafeDirectoryPath(directoryPath);
 
-        return safeDirectoryPath+"/"+this.xmlName+".xml";
+        return safeDirectoryPath + "/" + this.xmlName + ".xml";
 
     }
 
@@ -297,7 +297,7 @@ public class SnailCommand {
     /**
      * 是否覆盖
      */
-    public boolean getOverwriteMapperXml(){
+    public boolean getOverwriteMapperXml() {
         if (null == this.overwriteMapperXml) {
             return this.overwriteAll;
         } else {

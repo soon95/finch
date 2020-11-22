@@ -51,10 +51,10 @@ public class SnailGenerator {
         command.setOverwriteEntity(true);
         command.setOverwriteMapperJava(false);
         command.setOverwriteMapperXml(false);
-        command.setPageEqualFields(new ArrayList<String>(){{
+        command.setPageEqualFields(new ArrayList<String>() {{
             add("age");
         }});
-        command.setPageLikeFields(new ArrayList<String>(){{
+        command.setPageLikeFields(new ArrayList<String>() {{
             add("name");
         }});
 
