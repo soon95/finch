@@ -31,7 +31,7 @@
         ) VALUES (
 #foreach($column in $columns)
 #if(!$column.primaryKey)
-        #{${column.lowerCamelName},jdbcType=${column.jdbcType}#if($foreach.hasNext), #end
+        #{${column.lowerCamelName},jdbcType=${column.jdbcType}}#if($foreach.hasNext), #end
 
 #end
 #end
@@ -53,7 +53,7 @@
             (
 #foreach($column in $columns)
 #if(!$column.primaryKey)
-            #{item.${column.lowerCamelName},jdbcType=${column.jdbcType}#if($foreach.hasNext), #end
+            #{item.${column.lowerCamelName},jdbcType=${column.jdbcType}}#if($foreach.hasNext), #end
 
 #end
 #end
@@ -168,14 +168,14 @@
         <choose>
 
 #foreach($column in $pageOrderColumns)
-            <when test="${column.lowerCamelName} != null and ${column.lowerCamelName}.name() == 'ASC'">
+            <when test="order${column.upperCamelName} != null and order${column.upperCamelName}.name() == 'ASC'">
                 ORDER BY ${column.name} ASC
             </when>
-            <when test="${column.lowerCamelName} != null and ${column.lowerCamelName}.name() == 'DESC'">
+            <when test="order${column.upperCamelName} != null and order${column.upperCamelName}.name() == 'DESC'">
                 ORDER BY ${column.name} DESC
             </when>
-#end
 
+#end
         </choose>
 
     </select>
