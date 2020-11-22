@@ -13,7 +13,7 @@ import ${item};
 #end
 #end
 /**
-#if(!$tableRemarks)
+#if($tableRemarks)
  * ${tableRemarks}
  *
 #end
@@ -26,7 +26,7 @@ import ${item};
 public class ${entityUpperClassName} extends BaseEntity {
 
 #foreach($column in $selfColumns)
-#if(!${column.remark})
+#if(${column.remark})
     /**
      * ${column.remark}
      */
