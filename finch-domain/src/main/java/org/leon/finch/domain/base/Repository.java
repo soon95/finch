@@ -1,6 +1,5 @@
 package org.leon.finch.domain.base;
 
-import com.sun.istack.internal.NotNull;
 
 /**
  * Repository模式通用接口
@@ -15,14 +14,14 @@ public interface Repository<T extends Aggregate<ID>, ID extends Identifier> {
      *
      * @param aggregate 聚合根
      */
-    void attach(@NotNull T aggregate);
+    void attach(T aggregate);
 
     /**
      * 解除一个aggregate的追踪
      *
      * @param aggregate 聚合根
      */
-    void detach(@NotNull T aggregate);
+    void detach(T aggregate);
 
     /**
      * 通过ID找到aggregate
@@ -30,7 +29,7 @@ public interface Repository<T extends Aggregate<ID>, ID extends Identifier> {
      * @param id ID
      * @return 聚合根
      */
-    T find(@NotNull ID id);
+    T find(ID id);
 
     /**
      * 将一个aggregate从repository中移除
@@ -38,7 +37,7 @@ public interface Repository<T extends Aggregate<ID>, ID extends Identifier> {
      *
      * @param aggregate 聚合根
      */
-    void remove(@NotNull T aggregate);
+    void remove(T aggregate);
 
     /**
      * 保存一个aggregate

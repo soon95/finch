@@ -1,6 +1,5 @@
 package org.leon.finch.domain.base;
 
-import com.sun.istack.internal.NotNull;
 
 /**
  * @author Leon Song
@@ -13,7 +12,7 @@ public interface AggregateManager<T extends Aggregate<ID>, ID extends Identifier
      *
      * @param aggregate 聚合根
      */
-    void attach(@NotNull T aggregate);
+    void attach(T aggregate);
 
     void attach(T aggregate, ID id);
 
@@ -22,7 +21,7 @@ public interface AggregateManager<T extends Aggregate<ID>, ID extends Identifier
      *
      * @param aggregate 聚合根
      */
-    void detach(@NotNull T aggregate);
+    void detach(T aggregate);
 
     T find(ID id);
 
