@@ -41,6 +41,7 @@
         <module>finch-dal</module>
         <module>finch-service</module>
         <module>finch-tool</module>
+        <module>finch-demo</module>
     </modules>
 
     <dependencyManagement>
