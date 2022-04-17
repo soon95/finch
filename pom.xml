@@ -42,6 +42,7 @@
         <module>finch-service</module>
         <module>finch-tool</module>
         <module>finch-demo</module>
+        <module>finch-demo-starter</module>
     </modules>
 
     <dependencyManagement>
@@ -75,6 +76,18 @@
             <dependency>
                 <groupId>org.leon.finch</groupId>
                 <artifactId>finch-tool</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.leon.finch</groupId>
+                <artifactId>finch-demo</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.leon.finch</groupId>
+                <artifactId>finch-demo-starter</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
 
