@@ -43,6 +43,7 @@
         <module>finch-tool</module>
         <module>finch-demo</module>
         <module>finch-demo-starter</module>
+        <module>finch-parse</module>
     </modules>
 
     <dependencyManagement>
@@ -88,6 +89,12 @@
             <dependency>
                 <groupId>org.leon.finch</groupId>
                 <artifactId>finch-demo-starter</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.leon.finch</groupId>
+                <artifactId>finch-parse</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
 
@@ -164,6 +171,13 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
+            </dependency>
+
+            <!--      antlr依赖      -->
+            <dependency>
+                <groupId>org.antlr</groupId>
+                <artifactId>antlr4-runtime</artifactId>
+                <version>4.7</version>
             </dependency>
 
         </dependencies>
